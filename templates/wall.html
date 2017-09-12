@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Spacebook</h1>
+    <h3>Welcome Back! {{session['name']}}</h3>
+    <form class="" action="/logout">
+      <input type="submit" name="logout_button" value="Logout">
+    </form>
+    <form class="" action="/post" method="post">
+      <textarea name="post_text" rows="8" cols="80"></textarea>
+      <input type="submit" name="post_text" value="Post">
+      </form>
+      {%for message in messages%}
+        <p>{{message.first_name}} {{message.last_name}} Posted</p>
+        <h4>{{message.message}}</h4>
+        <p>{{message.created_at}}</p>
+        <h3>Comments</h3>
+          {%for comment in comments%}
+            {%if comment.message_id == message.id %}
+              <p>{{comment.comment}}</p>
+            {%endif%}
+
+
+          {%endfor%}
+          <form class="comment" action="/comment" method="post">
+            <input type="hidden" name="post_id" value='{{message.id}}'>
+            <textarea name="comment_text" rows="4" cols="40"></textarea>
+            <input type="submit" value="Post Comment">
+          </form>
+      {%endfor%}
+
+  </body>
+</html>
